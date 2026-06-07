@@ -132,6 +132,7 @@ def dashboard():
 # Export PDF Report
 @app.route("/export/<domain>")
 def export_report(domain):
+    import os
 
     whois_data = get_whois(domain)
     dns_data = get_dns_records(domain)
@@ -150,6 +151,11 @@ def export_report(domain):
         risk_level = "MEDIUM"
     else:
         risk_level = "HIGH"
+
+    os.makedirs(
+    "reports",
+    exist_ok=True
+)
 
     filename = f"reports/{domain}.pdf"
 
