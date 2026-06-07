@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OSINT Results</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>OSINT Scan Results</h1>
+
+    <div class="summary-card">
+
+    <div>
+
+        <h2>{{ domain }}</h2>
+
+        <p>OSINT Intelligence Report</p>
+
+    </div>
+
+    <div>
+
+        <div class="score-circle">
+
+            {{ risk_score }}
+
+        </div>
+
+        <p>{{ risk_level }} RISK</p>
+
+    </div>
+
+</div>
+
+    <div class="grid">
+        <div class="card">
+
+    <h3>WHOIS Information</h3>
+
+    {% if whois_data.get('error') %}
+
+        <p class="bad">
+            {{ whois_data['error'] }}
+        </p>
+
+    {% else %}
+
+        <div class="whois-row">
+            <span class="label">Domain</span>
+            <span class="value">
+                {{ whois_data.get('domain') }}
+            </span>
+        </div>
+
+        <div class="whois-row">
+            <span class="label">Registrar</span>
+            <span class="value">
+                {{ whois_data.get('registrar') }}
+            </span>
+        </div>
+
+        <div class="whois-row">
+            <span class="label">Created</span>
+            <span class="value">
+                {{ whois_data.get('creation_date') }}
+            </span>
+        </div>
+
+        <div class="whois-row">
+            <span class="label">Expires</span>
+            <span class="value">
+                {{ whois_data.get('expiration_date') }}
+            </span>
+        </div>
+
+    {% endif %}
+
+</div>
+
+        <div class="card">
+
+    <h3>Technology Fingerprinting</h3>
+
+    <div class="whois-row">
+        <span class="label">Server</span>
+        <span class="value">
+            {{ tech_data.get('server','Unknown') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">Powered By</span>
+        <span class="value">
+            {{ tech_data.get('powered_by','Unknown') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">CDN</span>
+        <span class="value">
+            {{ tech_data.get('cdn','Unknown') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">HSTS</span>
+        <span class="value">
+            {{ tech_data.get('hsts','Unknown') }}
+        </span>
+    </div>
+
+    {% if tech_data.hsts == "Enabled" %}
+<span class="good">Enabled</span>
+{% else %}
+<span class="bad">Disabled</span>
+{% endif %}
+
+</div>
+
+<div class="card">
+    <h3>DNS Records</h3>
+
+    <table class="dns-table">
+
+        <tr>
+            <th>Record Type</th>
+            <th>Value</th>
+        </tr>
+
+        {% for record in dns_data["A"] %}
+        <tr>
+            <td>A</td>
+            <td>{{ record }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for record in dns_data["AAAA"] %}
+        <tr>
+            <td>AAAA</td>
+            <td>{{ record }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for record in dns_data["MX"] %}
+        <tr>
+            <td>MX</td>
+            <td>{{ record }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for record in dns_data["NS"] %}
+        <tr>
+            <td>NS</td>
+            <td>{{ record }}</td>
+        </tr>
+        {% endfor %}
+
+        {% for record in dns_data["TXT"] %}
+        <tr>
+            <td>TXT</td>
+            <td>{{ record }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+</div>
+        <div class="card">
+
+    <h3>SSL Certificate</h3>
+
+    {% if ssl_data.get('error') %}
+
+        <p>{{ ssl_data['error'] }}</p>
+
+    {% else %}
+
+        <div class="whois-row">
+            <span class="label">Issuer</span>
+            <span class="value">{{ ssl_data['issuer'] }}</span>
+        </div>
+
+        <div class="whois-row">
+            <span class="label">Subject</span>
+            <span class="value">{{ ssl_data['subject'] }}</span>
+        </div>
+
+        <div class="whois-row">
+            <span class="label">Days Left</span>
+            <span class="value">{{ ssl_data['days_remaining'] }}</span>
+        </div>
+
+    {% endif %}
+
+</div>
+
+<div class="card">
+
+    <h3>Security Headers</h3>
+
+    {% for header, status in security_headers.items() %}
+
+        <div class="whois-row">
+
+            <span class="label">
+                {{ header }}
+            </span>
+
+            <span class="
+                {% if status == 'Present' %}
+                    good
+                {% else %}
+                    bad
+                {% endif %}
+            ">
+                {{ status }}
+            </span>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+<div class="card score-card">
+
+    <h3>Security Score</h3>
+
+    <div class="score-number">
+
+        {{ risk_score }}
+
+    </div>
+
+    <div class="
+        {% if risk_level == 'LOW' %}
+            good
+        {% elif risk_level == 'MEDIUM' %}
+            warning
+        {% else %}
+            bad
+        {% endif %}
+    ">
+
+        {{ risk_level }} RISK
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <h3>IP Intelligence</h3>
+
+    <div class="whois-row">
+        <span class="label">IP</span>
+        <span class="value">
+            {{ ip_info.get('ip') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">Country</span>
+        <span class="value">
+            {{ ip_info.get('country') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">City</span>
+        <span class="value">
+            {{ ip_info.get('city') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">ISP</span>
+        <span class="value">
+            {{ ip_info.get('isp') }}
+        </span>
+    </div>
+
+    <div class="whois-row">
+        <span class="label">ASN</span>
+        <span class="value">
+            {{ ip_info.get('asn') }}
+        </span>
+    </div>
+
+</div>
+
+<div class="export-container">
+    <a href="/export/{{ domain }}" class="export-btn">
+        Export PDF Report
+    </a>
+</div>
+

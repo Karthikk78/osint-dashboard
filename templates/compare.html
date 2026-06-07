@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Compare Domains</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Domain Comparison</h1>
+
+    <div class="compare-card">
+
+        <form action="/compare-result" method="POST">
+
+            <div class="form-group">
+
+                <label>First Domain</label>
+
+                <input
+                    type="text"
+                    name="domain1"
+                    placeholder="github.com"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Second Domain</label>
+
+                <input
+                    type="text"
+                    name="domain2"
+                    placeholder="instagram.com"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                class="compare-btn">
+
+                Compare Domains
+
+            </button>
+
+        </form>
+
+    </div>
+    
+
+</div>
+
+<table class="history-table">
+
+<tr>
+    <th>Metric</th>
+    <th>{{ domain1 }}</th>
+    <th>{{ domain2 }}</th>
+</tr>
+
+<tr>
+    <td>Risk Score</td>
+    <td>{{ score1 }}</td>
+    <td>{{ score2 }}</td>
+</tr>
+
+</table>
+
+</body>
+
+</html>

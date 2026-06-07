@@ -1,4 +1,9 @@
 venv/
 __pycache__/
-*.db
+*.pyc
+
+database/osint.db
+
+reports/
+
 .env

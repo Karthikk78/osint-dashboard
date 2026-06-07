@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Scan History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Scan History</h1>
+
+    <table class="history-table">
+
+        <tr>
+
+            <th>Domain</th>
+
+            <th>Score</th>
+
+            <th>Risk</th>
+
+            <th>Date</th>
+
+        </tr>
+
+        {% for row in history_data %}
+
+        <tr>
+
+            <td>{{ row[0] }}</td>
+
+            <td>{{ row[1] }}</td>
+
+            <td>{{ row[2] }}</td>
+
+            <td>{{ row[3] }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>

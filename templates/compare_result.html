@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Comparison Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Domain Comparison</h1>
+
+    <div class="card">
+
+        <table class="compare-table">
+
+            <tr>
+                <th>Metric</th>
+                <th>{{ domain1 }}</th>
+                <th>{{ domain2 }}</th>
+            </tr>
+
+            <tr>
+                <td>Risk Score</td>
+                <td>{{ score1 }}</td>
+                <td>{{ score2 }}</td>
+            </tr>
+
+            <tr>
+                <td>Risk Level</td>
+                <td>{{ risk_level1 }}</td>
+                <td>{{ risk_level2 }}</td>
+            </tr>
+
+            <tr>
+                <td>SSL Issuer</td>
+                <td>{{ ssl1.get('issuer') }}</td>
+                <td>{{ ssl2.get('issuer') }}</td>
+            </tr>
+
+            <tr>
+                <td>SSL Days Left</td>
+                <td>{{ ssl1.get('days_remaining') }}</td>
+                <td>{{ ssl2.get('days_remaining') }}</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

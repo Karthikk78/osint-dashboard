@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>OSINT Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        OSINT Dashboard
+    </div>
+
+    <div class="menu">
+        <a href="/">Home</a>
+        <a href="/history">History</a>
+        <a href="/dashboard">Analytics</a>
+        <a href="/compare">Compare</a>
+    </div>
+    
+
+</nav>
+
+<div class="hero" id="search">
+
+    <h1>OSINT Dashboard</h1>
+
+    <p>
+        Search domains, IPs and infrastructure
+    </p>
+
+    <form action="/scan" method="POST">
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="domainInput"
+                name="domain"
+                placeholder="example.com"
+                required>
+
+            <button type="submit">
+                Scan
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+
+
+<div class="feature-grid">
+
+    <div class="feature-card" onclick="focusSearch()">
+
+        <h3>🌐 WHOIS Lookup</h3>
+
+        <p>
+            Discover domain ownership,
+            registrar and registration dates.
+        </p>
+
+    </a>
+    </div>
+
+    <div class="feature-card" onclick="focusSearch()">
+
+        <h3>📡 DNS Analysis</h3>
+
+        <p>
+            View A, MX, TXT, NS
+            and other DNS records.
+        </p>
+
+    </a>
+    </div>
+
+    <div class="feature-card" onclick="focusSearch()">
+        <h3>🔒 SSL Certificate</h3>
+
+        <p>
+            Inspect certificate issuer,
+            validity and expiration.
+        </p>
+
+    </a>
+    </div>
+
+    <div class="feature-card" onclick="focusSearch()">
+
+        <h3>🛡️ Security Headers</h3>
+
+        <p>
+            Analyze HSTS, CSP and
+            website security posture.
+        </p>
+
+    </a>
+    </div>
+
+</div>
+
+
+<div id="loading">
+
+    <div class="spinner"></div>
+
+    <p>Scanning Target...</p>
+
+</div>
+
+<footer class="footer">
+
+    <p>
+        OSINT Dashboard © 2026
+    </p>
+
+</footer>
+
+<script>
+
+function focusSearch(){
+
+    document
+    .getElementById("domainInput")
+    .focus();
+
+    document
+    .getElementById("domainInput")
+    .scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+</script>
+
+
+
+</body>
+</html>
