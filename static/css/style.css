@@ -224,81 +224,54 @@ body{
 /* HISTORY PAGE */
 
 .history-card{
-
     width:90%;
     max-width:1000px;
-
     margin:50px auto;
-
     background:#111827;
-
     border:1px solid #374151;
-
     border-radius:14px;
-
     padding:25px;
 }
 
 .history-card h1{
-
     color:#ffffff;
-
     margin-bottom:25px;
 }
 
 .history-table{
-
     width:100%;
-
     border-collapse:collapse;
-
     overflow:hidden;
 }
 
 .history-table thead{
-
     background:#1f2937;
 }
 
 .history-table th{
-
     padding:18px;
-
     text-align:left;
-
     color:#60a5fa;
-
     font-size:15px;
-
     border-bottom:1px solid #374151;
 }
 
 .history-table td{
-
     padding:18px;
-
     color:#e5e7eb;
-
     border-bottom:1px solid #374151;
 }
 
 .history-table tbody tr:hover{
-
     background:#1f2937;
 }
 
 .risk-badge{
-
     display:inline-block;
-
     padding:6px 14px;
-
     border-radius:20px;
-
     color:white;
-
     font-size:13px;
-
     font-weight:600;
 }
 
@@ -315,34 +288,21 @@ body{
 }
 
 .empty-history{
-
     text-align:center;
-
     padding:50px;
-
     color:#94a3b8;
-
     font-size:18px;
 }
 
 .clear-btn{
-
     display:inline-block;
-
     margin-top:20px;
-
     padding:12px 20px;
-
     background:#dc2626;
-
     color:white;
-
     text-decoration:none;
-
     border-radius:8px;
-
     font-weight:600;
-
     transition:0.3s;
 }
 
@@ -456,11 +416,16 @@ body{
 
 /* FOOTER */
 .footer{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
     text-align:center;
-    padding:20px;
-    margin-top:100px;
+    padding:15px;
+    background:#111827;
     border-top:1px solid #374151;
     color:#9ca3af;
+    z-index:1000;
 }
 
 /* DASHBOARD GRID */
