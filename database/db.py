@@ -137,3 +137,17 @@ def get_analytics():
         "avg_score": round(avg_score),
         "risk_data": risk_data
     }
+def clear_history():
+
+    conn = sqlite3.connect(
+        "database/osint.db"
+    )
+
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "DELETE FROM scans"
+    )
+
+    conn.commit()
+    conn.close()

@@ -5,48 +5,77 @@
     <title>Scan History</title>
 
     <link rel="stylesheet"
-          href="{{ url_for('static',
-          filename='css/style.css') }}">
+          href="{{ url_for(
+          'static',
+          filename='css/style.css'
+          ) }}">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="history-card">
 
     <h1>Scan History</h1>
 
+    {% if history_data %}
+
     <table class="history-table">
 
-        <tr>
+        <thead>
 
-            <th>Domain</th>
+            <tr>
+                <th>Domain</th>
+                <th>Score</th>
+                <th>Risk Level</th>
+            </tr>
 
-            <th>Score</th>
+        </thead>
 
-            <th>Risk</th>
+        <tbody>
 
-            <th>Date</th>
+            {% for item in history_data %}
 
-        </tr>
+            <tr>
 
-        {% for row in history_data %}
+                <td>{{ item.domain }}</td>
 
-        <tr>
+                <td>{{ item.score }}</td>
 
-            <td>{{ row[0] }}</td>
+                <td>
 
-            <td>{{ row[1] }}</td>
+                    <span class="risk-badge {{ item.risk|lower }}">
 
-            <td>{{ row[2] }}</td>
+                        {{ item.risk }}
 
-            <td>{{ row[3] }}</td>
+                    </span>
 
-        </tr>
+                </td>
 
-        {% endfor %}
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
 
     </table>
+
+    {% else %}
+
+    <div class="empty-history">
+
+        No scans found.
+
+    </div>
+
+    {% endif %}
+
+    <a href="/clear-history"
+       class="clear-btn">
+
+        Clear History
+
+    </a>
 
 </div>
 

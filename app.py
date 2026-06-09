@@ -1,7 +1,11 @@
 import os
+import secrets
 
+
+from flask import session
 from flask import Flask, render_template, request
 from flask import send_file
+from flask import redirect
 
 from modules.whois_lookup import get_whois
 from modules.security_headers import check_security_headers
@@ -20,6 +24,7 @@ from database.db import (
 )
 
 app = Flask(__name__)
+app.secret_key = "osint-dashboard-secret-key"
 
 # Create database/table on startup
 init_db()
@@ -48,6 +53,7 @@ def scan():
     dns_data = get_dns_records(domain)
     ssl_data = get_ssl_info(domain)
     security_headers = check_security_headers(domain)
+    
 
     ip_info = {}
 
@@ -75,10 +81,24 @@ def scan():
 
     # Save Scan
     save_scan(
-        domain,
-        risk_score,
-        risk_level
+    domain,
+    risk_score,
+    risk_level
     )
+
+    if "history" not in session:
+        session["history"] = []
+
+    history = session["history"]
+
+    history.append({
+    "domain": domain,
+    "score": risk_score,
+    "risk": risk_level
+    })
+
+    session["history"] = history
+    print("SESSION SAVED:", session["history"])
 
     # Debug Logs
     print("\n========== SCAN RESULT ==========")
@@ -91,6 +111,8 @@ def scan():
     print("RISK SCORE:", risk_score)
     print("RISK LEVEL:", risk_level)
     print("=================================\n")
+   
+    print(session["history"])
 
     return render_template(
         "results.html",
@@ -109,12 +131,26 @@ def scan():
 @app.route("/history")
 def history():
 
-    history_data = get_history()
+    history_data = session.get(
+    "history",
+    []
+)
+    print("HISTORY DATA:", history_data)
 
     return render_template(
         "history.html",
         history_data=history_data
     )
+
+@app.route("/clear-history")
+def clear_history_route():
+
+    session.pop(
+        "history",
+        None
+    )
+
+    return redirect("/history")
 
 # Analytics Dashboard
 @app.route("/dashboard")
