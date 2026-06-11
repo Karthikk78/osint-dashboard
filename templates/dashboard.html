@@ -24,13 +24,23 @@
     <div class="stats-grid">
 
         <div class="card">
+
             <h3>Total Scans</h3>
-            <h2>{{ analytics.total_scans }}</h2>
+
+            <h1>
+                {{ analytics.total_scans }}
+            </h1>
+
         </div>
 
         <div class="card">
+
             <h3>Average Score</h3>
-            <h2>{{ analytics.avg_score }}</h2>
+
+            <h1>
+                {{ analytics.avg_score }}
+            </h1>
+
         </div>
 
     </div>
@@ -45,34 +55,38 @@
 
 </div>
 
+
 <script>
 
-const riskData = {{ analytics.risk_data | tojson | safe }};
+const riskData = {{ analytics.risk_data | tojson }};
 
 const labels = riskData.map(item => item[0]);
 const values = riskData.map(item => item[1]);
 
-const ctx = document.getElementById('riskChart');
+const ctx = document.getElementById("riskChart");
 
 new Chart(ctx, {
 
-    type: 'pie',
+    type: "pie",
 
     data: {
 
         labels: labels,
 
         datasets: [{
+
             data: values,
 
             backgroundColor: [
-                '#22c55e', // LOW
-                '#f59e0b', // MEDIUM
-                '#ef4444'  // HIGH
+                "#22c55e",
+                "#f59e0b",
+                "#ef4444"
             ],
 
             borderWidth: 1
+
         }]
+
     },
 
     options: {
@@ -82,7 +96,9 @@ new Chart(ctx, {
         plugins: {
 
             legend: {
-                position: 'bottom'
+
+                position: "bottom"
+
             }
 
         }

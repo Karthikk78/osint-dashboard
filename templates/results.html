@@ -292,9 +292,88 @@
 
 </div>
 
+
+
+<div class="card vt-card">
+
+    <h3 class="vt-title">
+
+        VirusTotal Reputation
+
+    </h3>
+
+    <div class="vt-grid">
+
+        <div class="vt-stat">
+
+            <div class="vt-number vt-malicious">
+
+                {{ vt_data.malicious }}
+
+            </div>
+
+            <div class="vt-label">
+
+                Malicious
+
+            </div>
+
+        </div>
+
+        <div class="vt-stat">
+
+            <div class="vt-number vt-suspicious">
+
+                {{ vt_data.suspicious }}
+
+            </div>
+
+            <div class="vt-label">
+
+                Suspicious
+
+            </div>
+
+        </div>
+
+        <div class="vt-stat">
+
+            <div class="vt-number vt-harmless">
+
+                {{ vt_data.harmless }}
+
+            </div>
+
+            <div class="vt-label">
+
+                Harmless
+
+            </div>
+
+        </div>
+
+        <div class="vt-stat">
+
+            <div class="vt-number vt-undetected">
+
+                {{ vt_data.undetected }}
+
+            </div>
+
+            <div class="vt-label">
+
+                Undetected
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
 <div class="export-container">
     <a href="/export/{{ domain }}" class="export-btn">
         Export PDF Report
     </a>
 </div>
-

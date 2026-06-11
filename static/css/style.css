@@ -16,15 +16,18 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 60px;
-
+    padding:18px 50px;
     background:#111827;
     border-bottom:1px solid #1e293b;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
 .logo{
-    font-size:22px;
-    font-weight:bold;
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:1px;
     color:#60a5fa;
 }
 
@@ -170,7 +173,7 @@ body{
 
 .value{
     flex:1;
-    text-align:middle;
+    text-align:left;
     word-break:break-word;
     color:#e5e7eb;
 }
@@ -437,6 +440,7 @@ body{
         minmax(350px,1fr)
     );
     gap:20px;
+    margin-top:20px;
 }
 
 /* CARD */
@@ -485,7 +489,21 @@ body{
         justify-content:center;
     }
 }
+@media(max-width:768px){
 
+    .search-container{
+        flex-direction:column;
+    }
+
+    .search-container input{
+        width:100%;
+    }
+
+    .search-container button{
+        width:100%;
+    }
+
+}
 .dashboard-grid{
     display:grid;
     grid-template-columns:
@@ -533,9 +551,10 @@ body{
 
 .feature-card{
     background:#111827;
-    border:1px solid #374151;
-    border-radius:12px;
+    border:1px solid #374151;   
+    border-radius:16px;
     padding:25px;
+    cursor:pointer; 
     text-decoration:none;
     transition:.3s;
 }
@@ -560,5 +579,93 @@ body{
 .feature-card p{
     color:#d1d5db;
     line-height:1.5;
+}
+
+.vt-card{
+
+    background:#111827;
+
+    border:1px solid #374151;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    transition:0.3s;
+}
+
+.vt-card:hover{
+
+    border-color:#3b82f6;
+
+    box-shadow:
+    0 8px 20px rgba(
+        59,
+        130,
+        246,
+        0.25
+    );
+}
+.vt-title{
+
+    color:#60a5fa;
+
+    font-size:20px;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+}
+.vt-grid{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2,1fr);
+
+    gap:15px;
+}
+.vt-stat{
+
+    background:#1f2937;
+
+    border-radius:10px;
+
+    padding:15px;
+
+    text-align:center;
+}
+.vt-number{
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+}
+.vt-label{
+
+    color:#94a3b8;
+
+    font-size:14px;
+}
+.vt-malicious{
+
+    color:#ef4444;
+}
+
+.vt-suspicious{
+
+    color:#f59e0b;
+}
+
+.vt-harmless{
+
+    color:#22c55e;
+}
+
+.vt-undetected{
+
+    color:#60a5fa;
 }
 

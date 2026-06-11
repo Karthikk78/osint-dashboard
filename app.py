@@ -16,6 +16,8 @@ from modules.risk_score import calculate_risk_score
 from database.db import get_analytics
 from modules.report_generator import generate_report
 from modules.ip_lookup import get_ip_info
+from modules.virustotal_lookup import get_virustotal
+
 
 from database.db import (
     init_db,
@@ -53,6 +55,8 @@ def scan():
     dns_data = get_dns_records(domain)
     ssl_data = get_ssl_info(domain)
     security_headers = check_security_headers(domain)
+    vt_data = get_virustotal(domain)
+    
     
 
     ip_info = {}
@@ -100,6 +104,8 @@ def scan():
     session["history"] = history
     print("SESSION SAVED:", session["history"])
 
+    
+
     # Debug Logs
     print("\n========== SCAN RESULT ==========")
     print("DOMAIN:", domain)
@@ -111,6 +117,7 @@ def scan():
     print("RISK SCORE:", risk_score)
     print("RISK LEVEL:", risk_level)
     print("=================================\n")
+    
    
     print(session["history"])
 
@@ -124,7 +131,9 @@ def scan():
         security_headers=security_headers,
         risk_score=risk_score,
         risk_level=risk_level,
-        ip_info=ip_info
+        ip_info=ip_info,
+        vt_data=vt_data
+       
     )
 
 # Scan History
@@ -156,9 +165,59 @@ def clear_history_route():
 @app.route("/dashboard")
 def dashboard():
 
-    analytics = get_analytics()
+    history = session.get(
+        "history",
+        []
+    )
 
-    print(analytics)
+    total_scans = len(history)
+
+    if total_scans > 0:
+
+        avg_score = round(
+
+            sum(
+                item["score"]
+                for item in history
+            ) / total_scans
+
+        )
+
+    else:
+
+        avg_score = 0
+
+    risk_counts = {
+
+        "LOW": 0,
+        "MEDIUM": 0,
+        "HIGH": 0
+
+    }
+
+    for item in history:
+
+        risk_counts[
+            item["risk"]
+        ] += 1
+
+    analytics = {
+
+        "total_scans": total_scans,
+
+        "avg_score": avg_score,
+
+        "risk_data": [
+
+            ["LOW", risk_counts["LOW"]],
+
+            ["MEDIUM", risk_counts["MEDIUM"]],
+
+            ["HIGH", risk_counts["HIGH"]]
+
+        ]
+
+    }
 
     return render_template(
         "dashboard.html",

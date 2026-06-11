@@ -1,3 +1,3 @@
-from modules.whois_lookup import get_whois
+from modules.subdomain_lookup import get_subdomains
 
-print(get_whois("github.com"))
+print(get_subdomains("github.com"))
