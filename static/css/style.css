@@ -159,7 +159,7 @@ body{
 .whois-row{
     display:flex;
     justify-content:space-between;
-    align-items:flex-start;
+    align-items:left;
     padding:10px 0;
     border-bottom:1px solid #374151;
     gap:20px;
